@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #Apps
+    'stage',
     'authuser',
 
     # Third Party
+    'rest_framework.authtoken',
     'rest_framework',
 ]
 
@@ -52,6 +54,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+      'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+    }
 
 ROOT_URLCONF = 'rankuser.urls'
 

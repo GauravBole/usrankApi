@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
-
+import json
 
 class UserManager(BaseUserManager):
     """Helpes django work with our custome model"""
@@ -39,13 +38,21 @@ class AuthUser(AbstractBaseUser,PermissionsMixin):
     name = models.CharField(max_length= 255)
     is_active = models.BooleanField(default = True)
     is_staff = models.BooleanField(default = False)
-    birth_date = models.DateField(null=True)
+    time_spend = models.IntegerField(default=0)
+    point = models.IntegerField(default=0)
     objects = UserManager()
 
     USERNAME_FIELD = 'user_id'
     REQUIRED_FIELDS = ['email']
 
+    @property   
+    def userrank(self):
+        # print(UserStage.objects.filter(user=instance))
+        return self.userstage_set().all().values()
+
     def __str__(self):
         """ convert object to string """
 
         return self.user_id
+
+    
